@@ -1,0 +1,1 @@
+# pointcoin-wallet-common

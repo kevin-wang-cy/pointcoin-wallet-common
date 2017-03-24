@@ -41,6 +41,11 @@ public class PointcoinTransaction {
     }
 
     public long getTimereceived() {
+
+        // as unxcoin missing timereceived some time
+        if (this.timereceived <= 0) {
+            return this.time;
+        }
         return timereceived;
     }
 

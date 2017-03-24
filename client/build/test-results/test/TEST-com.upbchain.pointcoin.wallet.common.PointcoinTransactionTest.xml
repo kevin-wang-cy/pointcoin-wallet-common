@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.upbchain.pointcoin.wallet.common.PointcoinTransactionTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2017-03-11T07:44:21" hostname="zhuvm-apmr-workstation" time="0.182">
-  <properties/>
-  <testcase name="generalTest" classname="com.upbchain.pointcoin.wallet.common.PointcoinTransactionTest" time="0.176"/>
-  <testcase name="coinbasedWithVINsTest" classname="com.upbchain.pointcoin.wallet.common.PointcoinTransactionTest" time="0.006"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

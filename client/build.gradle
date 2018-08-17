@@ -14,5 +14,5 @@ dependencies {
     compile("ch.qos.logback:logback-core:${logbackVersion}")
 
     testCompile("junit:junit:${junitVersion}")
+    testCompile("org.mockito:mockito-core:${mockitoVersion}")
 }
-

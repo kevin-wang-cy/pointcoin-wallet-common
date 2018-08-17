@@ -42,6 +42,7 @@ subprojects {
         slf4jVersion = "1.7.22"
         logbackVersion = "1.1.8"
         junitVersion = "4.12"
+        mockitoVersion = "2.+"
         jsonrpc4jVersion = "1.4.6"
     }
 

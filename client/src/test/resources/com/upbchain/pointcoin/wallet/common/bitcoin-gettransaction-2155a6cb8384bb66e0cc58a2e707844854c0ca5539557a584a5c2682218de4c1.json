@@ -1,0 +1,38 @@
+{
+  "result": {
+    "amount": 0,
+    "fee": -2.91e-06,
+    "confirmations": 120,
+    "blockhash": "00000000000000000008abb30c6abd69724d07c89a94c7165ee49f6dff3398ab",
+    "blockindex": 1912,
+    "blocktime": 1534313916,
+    "txid": "2155a6cb8384bb66e0cc58a2e707844854c0ca5539557a584a5c2682218de4c1",
+    "walletconflicts": [],
+    "time": 1534312951,
+    "timereceived": 1534312951,
+    "bip125-replaceable": "no",
+    "details": [
+      {
+        "account": "",
+        "address": "3KYRNJ5FkctTPFfHV87XMz5TmjPMk2s9YS",
+        "category": "send",
+        "amount": -0.002,
+        "label": "(memId-001) Mortgage Deposit Account",
+        "vout": 0,
+        "fee": -2.91e-06,
+        "abandoned": false
+      },
+      {
+        "account": "(memId-001) Mortgage Deposit Account",
+        "address": "3KYRNJ5FkctTPFfHV87XMz5TmjPMk2s9YS",
+        "category": "receive",
+        "amount": 0.002,
+        "label": "(memId-001) Mortgage Deposit Account",
+        "vout": 0
+      }
+    ],
+    "hex": "02000000000101cbe59f483e3209ae0a4f91b0f4a71690951beb6846f488800ddd130bba81826e0100000017160014b5e3206d079898543652539016200e282c906c31feffffff02400d03000000000017a914c3d2172b9f207022f15afabe1338133f83eaf6bb87baaf47000000000017a91440456c1c86412bd22a0f6aa8692caf17d7f9fc578702473044022066c7b05393e2487d2f1abe60cfa276adf7865acd7c7dfe1de2f13ce136eeb5640220331707677bb00a550c63bb1ea71f50dd3dfc6244796a4ada299ba2d53215807e012102577d4e308e09449d797878b2318074f17ea2851d1f6179f077b46b9322d796b2ff300800"
+  },
+  "error": null,
+  "id": "any-id-of-this-call"
+}

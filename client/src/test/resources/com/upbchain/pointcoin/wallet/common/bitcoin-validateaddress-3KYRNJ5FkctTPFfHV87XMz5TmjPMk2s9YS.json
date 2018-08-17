@@ -1,0 +1,32 @@
+{
+  "result": {
+    "isvalid": true,
+    "address": "3KYRNJ5FkctTPFfHV87XMz5TmjPMk2s9YS",
+    "scriptPubKey": "a914c3d2172b9f207022f15afabe1338133f83eaf6bb87",
+    "ismine": true,
+    "iswatchonly": false,
+    "isscript": true,
+    "iswitness": false,
+    "script": "witness_v0_keyhash",
+    "hex": "00140e78f9105dc1d905aca001e21ec582a4f5b93a2c",
+    "pubkey": "0252bde4a537626b119e1d1b846e2b6f707b69b8e1118d4c1961488f13bb016a4d",
+    "embedded": {
+      "isscript": false,
+      "iswitness": true,
+      "witness_version": 0,
+      "witness_program": "0e78f9105dc1d905aca001e21ec582a4f5b93a2c",
+      "pubkey": "0252bde4a537626b119e1d1b846e2b6f707b69b8e1118d4c1961488f13bb016a4d",
+      "address": "bc1qpeu0jyzac8vstt9qq83pa3vz5n6mjw3v6c03t3",
+      "scriptPubKey": "00140e78f9105dc1d905aca001e21ec582a4f5b93a2c"
+    },
+    "addresses": [
+      "bc1qpeu0jyzac8vstt9qq83pa3vz5n6mjw3v6c03t3"
+    ],
+    "account": "(memId-001) Mortgage Deposit Account",
+    "timestamp": 1533108048,
+    "hdkeypath": "m/0'/0'/4'",
+    "hdmasterkeyid": "ed7919cc411808ac30d6d6c9072be9510fcab86a"
+  },
+  "error": null,
+  "id": "any-id-of-this-call"
+}

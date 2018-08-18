@@ -15,7 +15,7 @@ buildscript {
 
 allprojects {
     group = 'com.upbchain.pointcoin'
-    version = project.properties.containsKey("releaseVersion") ? "${releaseVersion}" : "1.0-SNAPSHOT"
+    version = project.properties.containsKey("releaseVersion") ? "${releaseVersion}" : "2.0-SNAPSHOT"
 
     apply plugin: 'idea'
 
@@ -42,6 +42,7 @@ subprojects {
         slf4jVersion = "1.7.22"
         logbackVersion = "1.1.8"
         junitVersion = "4.12"
+        mockitoVersion = "2.+"
         jsonrpc4jVersion = "1.4.6"
     }
 

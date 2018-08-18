@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 
 import javax.validation.constraints.NotNull;
 
+import com.upbchain.pointcoin.wallet.common.com.upchain.pointcoin.wallet.common.internal.BitcoinTransactionSummary;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -32,20 +33,43 @@ import com.upbchain.pointcoin.wallet.common.util.PointcoinWalletUtil;
 public class PointcoinWalletClient {
     private static final Logger LOG = LoggerFactory.getLogger(PointcoinWalletClient.class);
     
-    private final String alias;
-    private final JsonRpcHttpClient jsonRPCClient;
+    private String alias;
+    private JsonRpcHttpClient jsonRPCClient;
+
+    private String kind;
 
     public PointcoinWalletClient(@NotNull String alias, @NotNull URL serviceUrl) {
-        this.alias = alias;
-        this.jsonRPCClient = createJsonRPCClient(serviceUrl, new HashMap<String, String>());
+        this.init("pointcoin", alias, serviceUrl, "", "");
     }
 
     public PointcoinWalletClient(@NotNull String alias, @NotNull URL serviceUrl, @NotNull String userName, @NotNull String passsword) {
+        this.init("pointcoin", alias, serviceUrl, userName, passsword);
+    }
+
+
+    public PointcoinWalletClient(String kind, @NotNull String alias, @NotNull URL serviceUrl) {
+        this.init(kind, alias, serviceUrl, "", "");
+    }
+
+    public PointcoinWalletClient(String kind, @NotNull String alias, @NotNull URL serviceUrl, @NotNull String userName, @NotNull String passsword) {
+       this.init(kind, alias, serviceUrl, userName, passsword);
+    }
+
+    private void init(@NotNull String kind, @NotNull String alias, @NotNull URL serviceUrl, @NotNull String userName, @NotNull String passsword) {
+        this.kind = detectKind(kind);
+
         Map<String, String> headers = new HashMap<String, String>();
-        headers.put("Authorization", String.format("Basic %s", new String(Base64.getEncoder().encode(String.format("%s:%s", userName, passsword).getBytes()))));
-        
+
+        if (!userName.isEmpty()) {
+            headers.put("Authorization", String.format("Basic %s", new String(Base64.getEncoder().encode(String.format("%s:%s", userName, passsword).getBytes()))));
+        }
+
         this.alias = alias;
         this.jsonRPCClient = createJsonRPCClient(serviceUrl, headers);
+    }
+
+    private String detectKind(String kind) {
+        return (kind == null || kind.trim().length() == 0) ? "pointcoin" : kind.trim().toLowerCase();
     }
 
     private JsonRpcHttpClient createJsonRPCClient(@NotNull URL serviceUrl, Map<String, String> headers) {
@@ -157,6 +181,10 @@ public class PointcoinWalletClient {
     }
 
     public PointcoinTransaction retrievePoincoinTransactionByTxId(@NotNull String txId) throws PointcoinWalletRPCException {
+        if (this.kind == "bitcoin") {
+            return this.retrieveBitcoinWalletTransactionByTxId(txId);
+        }
+
         List<?> params = Arrays.asList(txId);
         try {
             return jsonRPCClient.invoke("gettransaction", params, PointcoinTransaction.class);
@@ -168,4 +196,37 @@ public class PointcoinWalletClient {
         }
     }
 
+    private PointcoinTransaction retrieveBitcoinWalletTransactionByTxId(@NotNull String txId) throws PointcoinWalletRPCException {
+        List<?> params = Arrays.asList(txId);
+        PointcoinTransaction bitcoinTx = null;
+        BitcoinTransactionSummary bitcoinTxSummary = null;
+
+        try {
+            bitcoinTxSummary = jsonRPCClient.invoke("gettransaction", params, BitcoinTransactionSummary.class);
+
+        } catch (Throwable ex) {
+            if (LOG.isWarnEnabled()) {
+                LOG.warn(String.format("JSON PRC Error while calling '%s' with parameters of '%s'", "gettransaction", params), ex);
+            }
+            throw new PointcoinWalletRPCException("gettransaction", params, ex);
+        }
+
+        params = Arrays.asList(bitcoinTxSummary.getHex());
+
+        try {
+            bitcoinTx = jsonRPCClient.invoke("decoderawtransaction", params, PointcoinTransaction.class);
+
+        } catch (Throwable ex) {
+            if (LOG.isWarnEnabled()) {
+                LOG.warn(String.format("JSON PRC Error while calling '%s' with parameters of '%s'", "decoderawtransaction", params), ex);
+            }
+            throw new PointcoinWalletRPCException("decoderawtransaction", params, ex);
+        }
+
+        bitcoinTx.setConfirmations(bitcoinTxSummary.getConfirmations());
+        bitcoinTx.setTime(bitcoinTxSummary.getTime());
+        bitcoinTx.setTimereceived(bitcoinTxSummary.getTimereceived());
+
+        return bitcoinTx;
+    }
 }

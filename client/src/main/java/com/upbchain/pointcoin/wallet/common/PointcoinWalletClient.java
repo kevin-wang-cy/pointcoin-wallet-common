@@ -38,14 +38,6 @@ public class PointcoinWalletClient {
 
     private String kind;
 
-    public PointcoinWalletClient(@NotNull String alias, @NotNull URL serviceUrl) {
-        this.init("pointcoin", alias, serviceUrl, "", "");
-    }
-
-    public PointcoinWalletClient(@NotNull String alias, @NotNull URL serviceUrl, @NotNull String userName, @NotNull String passsword) {
-        this.init("pointcoin", alias, serviceUrl, userName, passsword);
-    }
-
 
     public PointcoinWalletClient(String kind, @NotNull String alias, @NotNull URL serviceUrl) {
         this.init(kind, alias, serviceUrl, "", "");
@@ -74,7 +66,7 @@ public class PointcoinWalletClient {
 
     private JsonRpcHttpClient createJsonRPCClient(@NotNull URL serviceUrl, Map<String, String> headers) {
         if (LOG.isInfoEnabled()) {
-            LOG.info(String.format("Pointcoin Wallet JSONRPC EndPoint: %s", serviceUrl.toExternalForm()));
+            LOG.info(String.format("%s Wallet JSONRPC EndPoint: %s", this.kind, serviceUrl.toExternalForm()));
         }
         ObjectMapper objMapper = new ObjectMapper();
 
@@ -181,7 +173,7 @@ public class PointcoinWalletClient {
     }
 
     public PointcoinTransaction retrievePoincoinTransactionByTxId(@NotNull String txId) throws PointcoinWalletRPCException {
-        if (this.kind == "bitcoin") {
+        if (this.kind.equals("bitcoin")) {
             return this.retrieveBitcoinWalletTransactionByTxId(txId);
         }
 

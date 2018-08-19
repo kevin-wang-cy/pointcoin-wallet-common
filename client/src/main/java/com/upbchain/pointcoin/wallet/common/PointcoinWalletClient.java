@@ -179,6 +179,7 @@ public class PointcoinWalletClient {
 
         List<?> params = Arrays.asList(txId);
         try {
+            if (LOG.isDebugEnabled()) LOG.debug("retrieve pointcoin|uxcoin transaction...");
             return jsonRPCClient.invoke("gettransaction", params, PointcoinTransaction.class);
         } catch (Throwable ex) {
             if (LOG.isWarnEnabled()) {
@@ -194,6 +195,7 @@ public class PointcoinWalletClient {
         BitcoinTransactionSummary bitcoinTxSummary = null;
 
         try {
+            if (LOG.isDebugEnabled()) LOG.debug("retrieve bitcoin transaction...");
             bitcoinTxSummary = jsonRPCClient.invoke("gettransaction", params, BitcoinTransactionSummary.class);
 
         } catch (Throwable ex) {
@@ -206,6 +208,7 @@ public class PointcoinWalletClient {
         params = Arrays.asList(bitcoinTxSummary.getHex());
 
         try {
+            if (LOG.isDebugEnabled()) LOG.debug("decode bitcoin transaction...");
             bitcoinTx = jsonRPCClient.invoke("decoderawtransaction", params, PointcoinTransaction.class);
 
         } catch (Throwable ex) {
